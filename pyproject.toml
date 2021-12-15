@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "get_ittf_info"
-version = "0.2.0"
+version = "0.2.4"
 description = "Python package that helps scrape Table Tennis athletes and tournaments information from 'Table Tennis Guide' website and 'ITTF' official website"
 authors = ["Mengdi Zhang"]
 license = "MIT"
@@ -15,10 +15,14 @@ lxml = "^4.7.1"
 requests = "^2.26.0"
 matplotlib = "^3.5.1"
 pytest = "^6.2.5"
+Sphinx = "^4.3.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
+myst-nb = "^0.13.1"
+sphinx-autoapi = "^1.8.4"
+sphinx-rtd-theme = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

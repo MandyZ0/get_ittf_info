@@ -147,7 +147,7 @@ def grab_player_data():
 
     all_ranked_ply_info_list = []
 
-    for i in pages_list[:2]:
+    for i in pages_list:
         print('in page %s, percent %s'%(i,round(float(i/38600),2)))
         test_url = 'https://results.ittf.link/index.php?option=com_fabrik&view=list&listid=35&limitstart35=%s'%i
         test_html = requests.get(test_url)
@@ -224,7 +224,7 @@ def grab_tournament_data():
 
     tournament_ply_info_list = []
 
-    for i in pages_list[:2]:
+    for i in pages_list:
         print('in page %s, percent %s'%(i,round(float(i/25600),2)))
         test_url = 'https://results.ittf.link/index.php?option=com_fabrik&view=list&listid=111&Itemid=286&limitstart111=%s'%i
         test_html = requests.get(test_url)
