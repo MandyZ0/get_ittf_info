@@ -10,6 +10,36 @@ import matplotlib.pyplot as plt
 
 ## Use xpath to extract first 1000 ranking table from Tabletennis Guide website
 def grab_ranking_data(gender):
+
+    """
+    Use xpath to extract first 1000 ranking table from Tabletennis Guide website.
+
+    Parameters
+    ----------
+    gender : String
+      Choose to extract male or female table tennis athletes.
+
+    Returns
+    -------
+    pandas.core.frame.DataFrame
+      The new scrapped table tennis athletes ranking dataframe.
+
+    Examples
+    --------
+    >>> from get_ittf_info import get_ittf_info
+    >>> df = get_ittf_info.grab_ranking_data('Male')
+    >>> df.head(1)
+
+    rank rank_increment     YOB     full_name country  rating point_increment  \
+    0     1                 1997.0  Fan Zhendong   China   12645                   
+
+        id  
+    0  121404 
+
+    """
+
+
+
     #!USE THIS ONE summary of following code:
     gender_dummy = 0
     if gender == 'Male':
@@ -86,6 +116,32 @@ def grab_ranking_data(gender):
 ## get the player's information data from ITTF website
 
 def grab_player_data():
+
+    """
+    Use xpath to extract get the registered table tennis athletes's profile information data from ITTF website.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    pandas.core.frame.DataFrame
+      The new scrapped table tennis athletes profile dataframe.
+
+    Examples
+    --------
+    >>> from get_ittf_info import get_ittf_info
+    >>> df = get_ittf_info.grab_player_data()
+    >>> df.head(1)
+    
+        id              full_name assoc gender     YOB activity  playing_hand  \
+    0  200266   AL TAHER Abdulrahman   KSA   Male  2011.0   Active  Right-handed   
+
+    playing_style       grip  
+    0      Attacker  Shakehand 
+
+    """
+
     # write up to a for loop
     pages_list = list(range(0,38601,50))
 
@@ -135,6 +191,34 @@ def grab_player_data():
 
 ## Get World Table Tennis Championships participants info from WTTF website
 def grab_tournament_data():
+
+    """
+    Use xpath to get World Table Tennis Championships participants info from WTTF website (before and include 2019).
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    pandas.core.frame.DataFrame
+      The new scrapped WTTC participants and result dataframe.
+
+    Examples
+    --------
+    >>> from get_ittf_info import get_ittf_info
+    >>> df = get_ittf_info.grab_tournament_data()
+    >>> df.head(1)
+
+        year                   tournament_name venue_city venue_country  \
+        0  2019  World Table Tennis Championships   Budapest           HUN   
+
+        player_country     full_name gender result_singles result_doubles  \
+        0            ALG  KHEROUF Sami   Male        Grp 2nd        Prel R1   
+
+        result_teams result_mixed  
+        0                   Prel R2  
+
+    """
     # write up to a for loop
     pages_list = list(range(0,25601,100))
 
@@ -177,7 +261,44 @@ def grab_tournament_data():
     
     return tournament_ply_info_df
 
-def vis_frequency_bar_chart(df,y_col,x_label,y_label,title,num_of_bars):
+def vis_frequency_bar_chart(df,y_col,x_label,y_label,title,num_of_bars,save_pic_name = ''):
+    """
+    Use bar chart to visualize number of times for each player taking part in the tournament, and save the figure to local directory.
+
+    Parameters
+    ----------
+    df : pandas.core.frame.DataFrame
+        The dataframe you want to visualize.
+
+    y_col : String
+        The name of the column you want to count frequency.
+
+    x_label : String
+        The x-axis label you want to display.
+    
+    y_label : String
+        The y-axis label you want to display.
+
+    title : String
+        The title you want to display.
+
+    num_of_bars : int
+        The number of bars you want to display in the plot.
+    
+    save_pic_name: String
+        The prefix name you want to use for saving the figure. * If not specified the function will not save the plot.
+
+    Returns
+    -------
+
+
+    Examples
+    --------
+    >>> from get_ittf_info import get_ittf_info
+    >>> tournament_ply_info_df = get_ittf_info.grab_tournament_data()
+    >>> vis_frequency_bar_chart(tournament_ply_info_df,'full_name','full name','frequency','Top %s Players who attended World Table Tennis Championships most of the times',10)
+
+    """
     # number of times for each player taking part in the tournament:
     count = df[y_col].value_counts()
     count = count.to_frame()
@@ -196,7 +317,33 @@ def vis_frequency_bar_chart(df,y_col,x_label,y_label,title,num_of_bars):
         height = rect.get_height()
         plt.text(rect.get_x() + rect.get_width()/2.0, height, '%d' % int(height), ha='center', va='bottom')
     
+    if save_pic_name != '':
+        plt.savefig('%s_%s_%s.png'%(save_pic_name, y_col,num_of_bars))
+
     plt.show()
 
 def percentage_pie_chart(df,y_col):
+    """
+    Use pie chart to visualize the percentage of athletes with certain property(such as left-handed)
+
+    Parameters
+    ----------
+    df : pandas.core.frame.DataFrame
+        The dataframe you want to visualize.
+
+    y_col : String
+        The name of the column you want to count frequency and percentage.
+
+    Returns
+    -------
+
+
+    Examples
+    --------
+    >>> from get_ittf_info import get_ittf_info
+    >>> tournament_ply_info_df = get_ittf_info.grab_tournament_data()
+    >>> vis_frequency_bar_chart(tournament_ply_info_df,'full_name','full name','frequency','Top %s Players who attended World Table Tennis Championships most of the times',10)
+
+    """
+
     df.loc[df[y_col] != ''][['id',y_col]].drop_duplicates()[y_col].value_counts().plot.pie(autopct = "%.2f%%", colors = ['grey', 'yellow'], figsize=(5, 5))
