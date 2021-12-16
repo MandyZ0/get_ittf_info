@@ -5,7 +5,7 @@ Python package that helps scrape Table Tennis athletes and tournaments informati
 ## Installation
 
 ```bash
-$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.3.1
+$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.3.3
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ So if we scrape these data we could do our own analysis freely.
   - Latest ranking for both male and female table tennis athletes. Ex:
 
     ```
-    female_ply_rank_info = get_ittf_info.grab_ranking_data('Female')
+    male_ply_rank_info = get_ittf_info.grab_ranking_data('Male')
     ```
 
     ![1](./image/1.png)
@@ -33,7 +33,7 @@ So if we scrape these data we could do our own analysis freely.
   - Profile for registered atheletes in ITTF system. Ex:
 
     ```
-    ply_profile_df = get_ittf_info.grab_player_data()
+    ply_profile_df = get_ittf_info.grab_player_data(-1)
     ```
 
     ![2](./image/2.png)
@@ -41,7 +41,7 @@ So if we scrape these data we could do our own analysis freely.
   - All previous players participation information in World Table Tennis Championships. Ex:
 
     ```
-    tournament_ply_info_df = get_ittf_info.grab_tournament_data()
+    tournament_ply_info_df = get_ittf_info.grab_tournament_data(-1)
     ```
 
     ![3](./image/3.png)
