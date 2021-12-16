@@ -7,9 +7,10 @@ import xml.etree.ElementTree as ET
 import re
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 ## Use xpath to extract first 1000 ranking table from Tabletennis Guide website
-def grab_ranking_data(gender):
+def grab_ranking_data(gender,pages = -1):
 
     """
     Use xpath to extract first 1000 ranking table from Tabletennis Guide website.
@@ -18,7 +19,10 @@ def grab_ranking_data(gender):
     ----------
     gender : String
       Choose to extract male or female table tennis athletes.
-
+      
+    pages : Int
+        Number of pages you want to extract. default = -1, which means extract first 1000 datapoints.
+        maximum pages = 10
     Returns
     -------
     pandas.core.frame.DataFrame
@@ -38,8 +42,6 @@ def grab_ranking_data(gender):
 
     """
 
-
-
     #!USE THIS ONE summary of following code:
     gender_dummy = 0
     if gender == 'Male':
@@ -47,7 +49,11 @@ def grab_ranking_data(gender):
     elif gender == 'Female':
         gender_dummy = 2
     ply_info_list = []
-    for page_i in range(1,10):
+    
+    if pages == -1:
+        pages = 10
+
+    for page_i in range(1,pages+1):
             
         test_url = 'https://tabletennis.guide/rating_ittf.php?gender=%s&page=%s'%(gender_dummy,page_i)
         test_html = requests.get(test_url)
@@ -110,18 +116,23 @@ def grab_ranking_data(gender):
         .astype(int)
         .replace('0', np.nan)
     )
+    #change to Chinese Taipei
+    ply_ranking_df.loc[ply_ranking_df['country'] == 'Taiwan','country'] = 'Chinese Taipei'
 
     return ply_ranking_df
 
 ## get the player's information data from ITTF website
 
-def grab_player_data():
+def grab_player_data(pages = -1):
 
     """
     Use xpath to extract get the registered table tennis athletes's profile information data from ITTF website.
 
     Parameters
     ----------
+    pages : Int
+        Number of pages you want to extract. default = -1, which means extract all the data.
+        maximum pages = 772
 
     Returns
     -------
@@ -143,11 +154,17 @@ def grab_player_data():
     """
 
     # write up to a for loop
-    pages_list = list(range(0,38601,50))
+    if pages == -1:
+        pages = 772
 
+    pages_list = list(range(0,pages*50+1,50))
+    
     all_ranked_ply_info_list = []
 
     for i in pages_list:
+        if ((i+1)%1000) == 0:
+            print('sleeping...')
+            time.sleep(15)
         print('in page %s, percent %s'%(i,round(float(i/38600),2)))
         test_url = 'https://results.ittf.link/index.php?option=com_fabrik&view=list&listid=35&limitstart35=%s'%i
         test_html = requests.get(test_url)
@@ -190,14 +207,17 @@ def grab_player_data():
     return all_player_info_df
 
 ## Get World Table Tennis Championships participants info from WTTF website
-def grab_tournament_data():
+def grab_tournament_data(pages = -1):
 
     """
     Use xpath to get World Table Tennis Championships participants info from WTTF website (before and include 2019).
 
     Parameters
     ----------
-
+    pages : Int
+        Number of pages you want to extract. default = -1, which means extract all the data.
+        maximum pages = 256
+        
     Returns
     -------
     pandas.core.frame.DataFrame
@@ -220,11 +240,19 @@ def grab_tournament_data():
 
     """
     # write up to a for loop
-    pages_list = list(range(0,25601,100))
+    # write up to a for loop
+    if pages == -1:
+        pages = 256
+
+    pages_list = list(range(0,pages*100+1,100))
 
     tournament_ply_info_list = []
 
     for i in pages_list:
+        if ((i+1)%1000) == 0:
+            print('sleeping...')
+            time.sleep(15)
+
         print('in page %s, percent %s'%(i,round(float(i/25600),2)))
         test_url = 'https://results.ittf.link/index.php?option=com_fabrik&view=list&listid=111&Itemid=286&limitstart111=%s'%i
         test_html = requests.get(test_url)

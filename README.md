@@ -1,14 +1,24 @@
 # get_ittf_info
 
-Python package that helps scrape Table Tennis athletes and tournaments information from 'Table Tennis Guide' website and 'ITTF' official website
+Python package that helps scrape Table Tennis athletes and tournaments information from 'Table Tennis Guide' website and 'ITTF' official website.
 
 ## Installation
 
 ```bash
-$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.2.4
+$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.2.9
 ```
 
 ## Usage
+
+The initial incentive for the author to write this package:
+
+The author wants to obtain table tennis players' profiles for analysis, the profile including their rankings, competition results and so on.
+
+On official ITTF website, under '[Player Profile](https://results.ittf.link/index.php?option=com_fabrik&view=list&listid=35&Itemid=155)' , we cannot filter by players'playing hand, playing style and grip method. 
+
+So if we scrape these data we could do our own analysis freely.
+
+
 
 - Web data scraping: Extract Table Tennis athletes and tournaments information from  '[Table Tennis Guide](https://tabletennis.guide/rating_ittf.php?gender=1)' website and '[ITTF](https://results.ittf.link/index.php)' official website. Includes:
   - Latest ranking for both male and female table tennis athletes.
