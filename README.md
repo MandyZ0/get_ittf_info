@@ -5,7 +5,7 @@ Python package that helps scrape Table Tennis athletes and tournaments informati
 ## Installation
 
 ```bash
-$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.3.0
+$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.3.1
 ```
 
 ## Usage
@@ -21,12 +21,46 @@ So if we scrape these data we could do our own analysis freely.
 
 
 - Web data scraping: Extract Table Tennis athletes and tournaments information from  '[Table Tennis Guide](https://tabletennis.guide/rating_ittf.php?gender=1)' website and '[ITTF](https://results.ittf.link/index.php)' official website. Includes:
-  - Latest ranking for both male and female table tennis athletes.
-  - Profile for registered atheletes in ITTF system.
-  - All previous players participation information in World Table Tennis Championships.
+
+  - Latest ranking for both male and female table tennis athletes. Ex:
+
+    ```
+    female_ply_rank_info = get_ittf_info.grab_ranking_data('Female')
+    ```
+
+    ![1](./image/1.png)
+
+  - Profile for registered atheletes in ITTF system. Ex:
+
+    ```
+    ply_profile_df = get_ittf_info.grab_player_data()
+    ```
+
+    ![2](./image/2.png)
+
+  - All previous players participation information in World Table Tennis Championships. Ex:
+
+    ```
+    tournament_ply_info_df = get_ittf_info.grab_tournament_data()
+    ```
+
+    ![3](./image/3.png)
+
 - Data visualization: Do some basic analysis of our obtained dataset.
+
   - Bar chart visualization for the frequency of the selected column of the input dataframe
+
+    ```
+    num_of_display = 10
+    get_ittf_info.vis_frequency_bar_chart(tournament_ply_info_df,'full_name','full name','frequency','...')
+    ```
+
   - Pie chart  visualization for the percentages of different elements in the selected column of the input dataframe
+
+    ```
+    # frequency for different grip method for registered players:
+    get_ittf_info.percentage_pie_chart(ply_profile_df,'grip')
+    ```
 
 ## License
 
