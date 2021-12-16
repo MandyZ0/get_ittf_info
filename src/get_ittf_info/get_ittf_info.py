@@ -131,7 +131,7 @@ def grab_player_data(pages = -1):
     Parameters
     ----------
     pages : Int
-        Number of pages you want to extract. default = -1, which means extract all the data.
+        Extract until the page 'pages'(starts from page 0). default = -1, which means extract all the data.
         maximum pages = 772
 
     Returns
@@ -215,7 +215,7 @@ def grab_tournament_data(pages = -1):
     Parameters
     ----------
     pages : Int
-        Number of pages you want to extract. default = -1, which means extract all the data.
+        Extract until the page 'pages'(starts from page 0). default = -1, which means extract all the data.
         maximum pages = 256
         
     Returns

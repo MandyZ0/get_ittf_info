@@ -5,7 +5,7 @@ Python package that helps scrape Table Tennis athletes and tournaments informati
 ## Installation
 
 ```bash
-$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.2.9
+$ pip install -i https://test.pypi.org/simple/ get-ittf-info==0.3.0
 ```
 
 ## Usage

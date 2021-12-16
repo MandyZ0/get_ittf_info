@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "get_ittf_info"
-version = "0.2.9"
+version = "0.3.0"
 description = "Python package that helps scrape Table Tennis athletes and tournaments information from 'Table Tennis Guide' website and 'ITTF' official website"
 authors = ["Mengdi Zhang"]
 license = "MIT"
